@@ -81,29 +81,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     CorsConfigurationSource corsConfigurationSource() {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addExposedHeader("Authorization");
 
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin("*");
-        config.addAllowedHeader("Content-Type");
-        config.addAllowedHeader("x-xsrf-token");
-        config.addAllowedHeader("Authorization");
-        config.addAllowedHeader("Access-Control-Allow-Headers");
-        config.addAllowedHeader("Origin");
-        config.addAllowedHeader("Accept");
-        config.addAllowedHeader("X-Requested-With");
-        config.addAllowedHeader("Access-Control-Request-Method");
-        config.addAllowedHeader("Access-Control-Request-Headers");
-        config.addAllowedMethod("OPTIONS");
-        config.addAllowedMethod("GET");
-        config.addAllowedMethod("PUT");
-        config.addAllowedMethod("POST");
-        config.addAllowedMethod("DELETE");
-
-        source.registerCorsConfiguration("/**"
-//                , new CorsConfiguration().applyPermitDefaultValues()
-                , config
-        );
+        source.registerCorsConfiguration("/**", configuration.applyPermitDefaultValues());
         return source;
     }
 
